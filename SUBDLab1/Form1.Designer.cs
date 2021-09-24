@@ -29,13 +29,19 @@ namespace SUBDLab1
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.NameLabel = new System.Windows.Forms.Label();
             this.AuthorLabale = new System.Windows.Forms.Label();
             this.GenreLabel = new System.Windows.Forms.Label();
             this.YearOfReleaseLable = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.maskedTextBoxadd = new System.Windows.Forms.MaskedTextBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.FindTextBox = new System.Windows.Forms.TextBox();
+            this.FindButton = new System.Windows.Forms.Button();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.maskedTextBox2 = new System.Windows.Forms.MaskedTextBox();
@@ -60,10 +66,6 @@ namespace SUBDLab1
             this.отркытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.FindButton = new System.Windows.Forms.Button();
-            this.FindTextBox = new System.Windows.Forms.TextBox();
             this.NameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Authors = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GenreColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -75,7 +77,8 @@ namespace SUBDLab1
             this.DateOfAppearanceInTheLibraryColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DateOfReadingColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RatingColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -136,7 +139,10 @@ namespace SUBDLab1
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.listBox1);
+            this.groupBox1.Controls.Add(this.button3);
+            this.groupBox1.Controls.Add(this.maskedTextBoxadd);
+            this.groupBox1.Controls.Add(this.button2);
+            this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.FindTextBox);
             this.groupBox1.Controls.Add(this.FindButton);
             this.groupBox1.Controls.Add(this.comboBox2);
@@ -170,6 +176,67 @@ namespace SUBDLab1
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             // 
+            // button3
+            // 
+            this.button3.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.button3.Location = new System.Drawing.Point(299, 215);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(100, 23);
+            this.button3.TabIndex = 39;
+            this.button3.Text = "Удалить все";
+            this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // maskedTextBoxadd
+            // 
+            this.maskedTextBoxadd.Location = new System.Drawing.Point(8, 244);
+            this.maskedTextBoxadd.Mask = "0000";
+            this.maskedTextBoxadd.Name = "maskedTextBoxadd";
+            this.maskedTextBoxadd.Size = new System.Drawing.Size(100, 20);
+            this.maskedTextBoxadd.TabIndex = 38;
+            this.maskedTextBoxadd.ValidatingType = typeof(int);
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.button2.Location = new System.Drawing.Point(8, 215);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(100, 23);
+            this.button2.TabIndex = 36;
+            this.button2.Text = "рандомные книги";
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.button1.Location = new System.Drawing.Point(405, 241);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(100, 21);
+            this.button1.TabIndex = 35;
+            this.button1.Text = "Изменить";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // FindTextBox
+            // 
+            this.FindTextBox.Location = new System.Drawing.Point(114, 245);
+            this.FindTextBox.Name = "FindTextBox";
+            this.FindTextBox.Size = new System.Drawing.Size(100, 20);
+            this.FindTextBox.TabIndex = 33;
+            this.FindTextBox.TextChanged += new System.EventHandler(this.FindTextBox_TextChanged);
+            // 
+            // FindButton
+            // 
+            this.FindButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.FindButton.Location = new System.Drawing.Point(114, 215);
+            this.FindButton.Name = "FindButton";
+            this.FindButton.Size = new System.Drawing.Size(100, 23);
+            this.FindButton.TabIndex = 32;
+            this.FindButton.Text = "Найти";
+            this.FindButton.UseVisualStyleBackColor = false;
+            this.FindButton.Click += new System.EventHandler(this.FindButton_Click);
+            // 
             // comboBox2
             // 
             this.comboBox2.FormattingEnabled = true;
@@ -196,7 +263,7 @@ namespace SUBDLab1
             // maskedTextBox2
             // 
             this.maskedTextBox2.Location = new System.Drawing.Point(405, 131);
-            this.maskedTextBox2.Mask = "00/00/0000";
+            this.maskedTextBox2.Mask = "00/0000";
             this.maskedTextBox2.Name = "maskedTextBox2";
             this.maskedTextBox2.Size = new System.Drawing.Size(100, 20);
             this.maskedTextBox2.TabIndex = 29;
@@ -205,7 +272,7 @@ namespace SUBDLab1
             // maskedTextBox1
             // 
             this.maskedTextBox1.Location = new System.Drawing.Point(405, 105);
-            this.maskedTextBox1.Mask = "00/00/0000";
+            this.maskedTextBox1.Mask = "00/0000";
             this.maskedTextBox1.Name = "maskedTextBox1";
             this.maskedTextBox1.Size = new System.Drawing.Size(100, 20);
             this.maskedTextBox1.TabIndex = 28;
@@ -379,33 +446,34 @@ namespace SUBDLab1
             // отркытьToolStripMenuItem
             // 
             this.отркытьToolStripMenuItem.Name = "отркытьToolStripMenuItem";
-            this.отркытьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.отркытьToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.отркытьToolStripMenuItem.Text = "Отркыть";
             this.отркытьToolStripMenuItem.Click += new System.EventHandler(this.отркытьToolStripMenuItem_Click);
             // 
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
             this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToOrderColumns = true;
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
             this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.MenuText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.MenuText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NameColumn,
@@ -424,95 +492,86 @@ namespace SUBDLab1
             this.dataGridView1.Location = new System.Drawing.Point(10, 280);
             this.dataGridView1.MinimumSize = new System.Drawing.Size(300, 100);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            this.dataGridView1.Size = new System.Drawing.Size(1336, 257);
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.Size = new System.Drawing.Size(1144, 257);
             this.dataGridView1.TabIndex = 2;
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
-            // 
-            // FindButton
-            // 
-            this.FindButton.Location = new System.Drawing.Point(511, 189);
-            this.FindButton.Name = "FindButton";
-            this.FindButton.Size = new System.Drawing.Size(100, 20);
-            this.FindButton.TabIndex = 32;
-            this.FindButton.Text = "button1";
-            this.FindButton.UseVisualStyleBackColor = true;
-            this.FindButton.Click += new System.EventHandler(this.FindButton_Click);
-            // 
-            // FindTextBox
-            // 
-            this.FindTextBox.Location = new System.Drawing.Point(511, 215);
-            this.FindTextBox.Name = "FindTextBox";
-            this.FindTextBox.Size = new System.Drawing.Size(100, 20);
-            this.FindTextBox.TabIndex = 33;
-            this.FindTextBox.TextChanged += new System.EventHandler(this.FindTextBox_TextChanged);
+            this.dataGridView1.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseClick);
+            this.dataGridView1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDoubleClick);
             // 
             // NameColumn
             // 
             this.NameColumn.HeaderText = "Имя";
             this.NameColumn.Name = "NameColumn";
+            this.NameColumn.ReadOnly = true;
             // 
             // Authors
             // 
             this.Authors.HeaderText = "Авторы";
             this.Authors.Name = "Authors";
+            this.Authors.ReadOnly = true;
             // 
             // GenreColumn
             // 
             this.GenreColumn.HeaderText = "Жанр";
             this.GenreColumn.Name = "GenreColumn";
+            this.GenreColumn.ReadOnly = true;
             // 
             // YearOfManufactureColumn
             // 
             this.YearOfManufactureColumn.HeaderText = "Год выпуска";
             this.YearOfManufactureColumn.Name = "YearOfManufactureColumn";
+            this.YearOfManufactureColumn.ReadOnly = true;
             // 
             // CoverWidthColumn
             // 
             this.CoverWidthColumn.HeaderText = "Ширина обложки";
             this.CoverWidthColumn.Name = "CoverWidthColumn";
+            this.CoverWidthColumn.ReadOnly = true;
             // 
             // CoverHeightColumn
             // 
             this.CoverHeightColumn.HeaderText = "Высота обложки";
             this.CoverHeightColumn.Name = "CoverHeightColumn";
+            this.CoverHeightColumn.ReadOnly = true;
+            this.CoverHeightColumn.Width = 101;
             // 
             // BindingFormatColumn
             // 
             this.BindingFormatColumn.HeaderText = "Формат переплета";
             this.BindingFormatColumn.Name = "BindingFormatColumn";
+            this.BindingFormatColumn.ReadOnly = true;
             // 
             // SourceOfAppearanceColumn
             // 
             this.SourceOfAppearanceColumn.HeaderText = "Источник появления";
             this.SourceOfAppearanceColumn.Name = "SourceOfAppearanceColumn";
+            this.SourceOfAppearanceColumn.ReadOnly = true;
             // 
             // DateOfAppearanceInTheLibraryColumn
             // 
             this.DateOfAppearanceInTheLibraryColumn.HeaderText = "Дата появления в библиотеке";
             this.DateOfAppearanceInTheLibraryColumn.Name = "DateOfAppearanceInTheLibraryColumn";
+            this.DateOfAppearanceInTheLibraryColumn.ReadOnly = true;
             // 
             // DateOfReadingColumn
             // 
             this.DateOfReadingColumn.HeaderText = " Дата прочтения";
             this.DateOfReadingColumn.Name = "DateOfReadingColumn";
+            this.DateOfReadingColumn.ReadOnly = true;
             // 
             // RatingColumn
             // 
             this.RatingColumn.HeaderText = "Рейтинг";
             this.RatingColumn.Name = "RatingColumn";
+            this.RatingColumn.ReadOnly = true;
             // 
-            // listBox1
+            // openFileDialog1
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(767, 131);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(195, 95);
-            this.listBox1.TabIndex = 34;
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // FormLab
             // 
@@ -583,7 +642,10 @@ namespace SUBDLab1
         private System.Windows.Forms.DataGridViewTextBoxColumn DateOfAppearanceInTheLibraryColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn DateOfReadingColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn RatingColumn;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.MaskedTextBox maskedTextBoxadd;
+        private System.Windows.Forms.Button button3;
     }
 }
 
