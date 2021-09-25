@@ -13,8 +13,10 @@ using Microsoft.Win32;
 
 namespace SUBDLab1
 {
+    
     public partial class FormLab : Form
     {
+         object locker = new object();
         public FormLab()
         {
             InitializeComponent();
@@ -27,158 +29,262 @@ namespace SUBDLab1
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            string name = textBox1.Text;
-            string author = textBox2.Text;
-            string ganre = textBox3.Text;
-            string yearOfManufacture = textBox4.Text;
-            string сoverWidth = textBox5.Text;
-            string coverHight = textBox7.Text;
-            string bindingFormat = comboBox1.Text;
-            string sourceOfAppearance = comboBox2.Text;
-            string dateOfAppearanceInTheLibrary = maskedTextBox1.Text;
-            string dateOfReading = maskedTextBox2.Text;
-            string rating = textBox10.Text;
-            dataGridView1.Rows.Add(name, author, ganre, yearOfManufacture, сoverWidth, coverHight,
-                bindingFormat, sourceOfAppearance, dateOfAppearanceInTheLibrary, dateOfReading, rating);
-            textBox1.Clear();
-            textBox2.Clear();
-            textBox3.Clear();
-            textBox4.Clear();
-            textBox5.Clear();
-            textBox7.Clear();
-            textBox10.Clear();
-            maskedTextBox1.Clear();
-            maskedTextBox2.Clear();
 
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
             try
             {
-
-                int index = dataGridView1.SelectedCells[0].RowIndex;
-                dataGridView1.Rows.RemoveAt(index);
-
-                FileStream fs = new FileStream(@"C:\Users\esteb\Desktop\file.txt", FileMode.Create);
-                StreamWriter streamWriter = new StreamWriter(fs);
-
-                try
-                {
-                    for (int j = 0; j < dataGridView1.Rows.Count - 1; j++)
+                lock(locker)
                     {
-                        for (int i = 0; i < dataGridView1.Rows[j].Cells.Count; i++)
+
+                    FileStream fs = new FileStream(@"C:\Users\esteb\source\repos\SUBDLab1\file.txt", FileMode.Create);
+                    StreamWriter streamWriter = new StreamWriter(fs);
+
+
+                    string name = textBox1.Text;
+                        string author = textBox2.Text;
+                        string ganre = textBox3.Text;
+                        string yearOfManufacture = textBox4.Text;
+                        string сoverWidth = textBox5.Text;
+                        string coverHight = textBox7.Text;
+                        string bindingFormat = comboBox1.Text;
+                        string sourceOfAppearance = comboBox2.Text;
+                        string dateOfAppearanceInTheLibrary = maskedTextBox1.Text;
+                        string dateOfReading = maskedTextBox2.Text;
+                        string rating = textBox10.Text;
+                    dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].SetValues(name, author, ganre, yearOfManufacture, сoverWidth, coverHight,
+                       bindingFormat, sourceOfAppearance, dateOfAppearanceInTheLibrary, dateOfReading, rating);
+                   
+                    try
+                    {
+                        for (int j = 0; j < dataGridView1.Rows.Count - 1; j++)
                         {
-                            streamWriter.Write(dataGridView1.Rows[j].Cells[i].Value + ";");
+                            for (int i = 0; i < dataGridView1.Rows[j].Cells.Count; i++)
+                            {
+                                streamWriter.Write(dataGridView1.Rows[j].Cells[i].Value + ";");
+                            }
+
+                            streamWriter.WriteLine();
                         }
 
-                        streamWriter.WriteLine();
+                        streamWriter.Close();
+                        fs.Close();
                     }
-
-                    streamWriter.Close();
-                    fs.Close();
-                }
-                catch
-                {
-                    MessageBox.Show("Ошибка при удалении из файла!");
+                    catch
+                    {
+                        MessageBox.Show("Ошибка при добавлении из файла!");
+                    }
                 }
             }
             catch
             {
-                MessageBox.Show("Пустая строка");
+                MessageBox.Show("Файл занят");
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
+            lock(locker)
+            {
+               
+
+                    try
+                    {
+                            
+
+                            FileStream fs = new FileStream(@"C:\Users\esteb\source\repos\SUBDLab1\file.txt", FileMode.Create);
+                            StreamWriter streamWriter = new StreamWriter(fs);
+                            int index = dataGridView1.SelectedCells[0].RowIndex;
+                            dataGridView1.Rows.RemoveAt(index);
+
+                            try
+                            {
+                                for (int j = 0; j < dataGridView1.Rows.Count - 1; j++)
+                                {
+                                    for (int i = 0; i < dataGridView1.Rows[j].Cells.Count; i++)
+                                    {
+                                        streamWriter.Write(dataGridView1.Rows[j].Cells[i].Value + ";");
+                                    }
+
+                                    streamWriter.WriteLine();
+                                }
+
+                                streamWriter.Close();
+                                fs.Close();
+                            }
+                            catch
+                            {
+                                MessageBox.Show("Ошибка при удалении из файла!");
+                            }
+                
+                    }
+                    catch (Exception ex)
+                    {
+                    MessageBox.Show(ex.Message);
+                }
+
+                }
+                
+           
         }
 
 
 
         private void отркытьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Stream mystr = null;
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            lock (locker)
             {
-                if ((mystr = openFileDialog1.OpenFile()) != null)
+
+                try
                 {
-                    StreamReader myread = new StreamReader(mystr);
-                    string[] str;
-                    int num = 0;
-                    try
+
+                    Stream mystr = null;
+                    if (openFileDialog1.ShowDialog() == DialogResult.OK)
                     {
-                        string[] str1 = myread.ReadToEnd().Split('\n');
-                        num = str1.Count();
-                        dataGridView1.RowCount = num;
-                        for (int i = 0; i < num; i++)
+                        if ((mystr = openFileDialog1.OpenFile()) != null)
                         {
-                            str = str1[i].Split(';');
-                            for (int j = 0; j < dataGridView1.ColumnCount; j++)
+                            StreamReader myread = new StreamReader(mystr);
+                            string[] str;
+                            int num = 0;
+                            try
                             {
-                                try
+                                string[] str1 = myread.ReadToEnd().Split('\n');
+                                num = str1.Count();
+                                dataGridView1.RowCount = num;
+                                for (int i = 0; i < num; i++)
                                 {
-                                    dataGridView1.Rows[i].Cells[j].Value = str[j];
-                                }
-                                catch
-                                {
+                                    str = str1[i].Split(';');
+                                    for (int j = 0; j < dataGridView1.ColumnCount; j++)
+                                    {
+                                        try
+                                        {
+                                            dataGridView1.Rows[i].Cells[j].Value = str[j];
+                                        }
+                                        catch
+                                        {
+
+                                        }
+                                    }
 
                                 }
                             }
-
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                            }
+                            finally { myread.Close(); }
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                    finally { myread.Close(); }
+                }
+
+                catch
+                {
+                    MessageBox.Show("Файл занят");
                 }
             }
         }
 
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FileStream fs = new FileStream(@"C:\Users\esteb\Desktop\file.txt", FileMode.Open);
-            StreamWriter streamWriter = new StreamWriter(fs);
-
-            try
+            lock (locker)
             {
-                for (int j = 0; j < dataGridView1.Rows.Count - 1; j++)
+                try
                 {
-                    for (int i = 0; i < dataGridView1.Rows[j].Cells.Count; i++)
+                    FileStream fs = new FileStream(@"C:\Users\esteb\source\repos\SUBDLab1\file.txt", FileMode.Open);
+                    StreamWriter streamWriter = new StreamWriter(fs);
+
+                    try
                     {
-                        streamWriter.Write(dataGridView1.Rows[j].Cells[i].Value + ";");
+                        for (int j = 0; j < dataGridView1.Rows.Count - 1; j++)
+                        {
+                            for (int i = 0; i < dataGridView1.Rows[j].Cells.Count; i++)
+                            {
+                                streamWriter.Write(dataGridView1.Rows[j].Cells[i].Value + ";");
+                            }
+                            streamWriter.WriteLine();
+
+                        }
+
+                        streamWriter.Close();
+                        fs.Close();
+
+                        MessageBox.Show("Файл успешно сохранен");
                     }
-                    streamWriter.WriteLine();
-
+                    catch
+                    {
+                        MessageBox.Show("Ошибка при сохранении файла!");
+                    }
                 }
-
-                streamWriter.Close();
-                fs.Close();
-
-                MessageBox.Show("Файл успешно сохранен");
-            }
-            catch
-            {
-                MessageBox.Show("Ошибка при сохранении файла!");
+                catch
+                {
+                    MessageBox.Show("Файл занят");
+                }
+               
             }
 
         }
         private void button1_Click_1(object sender, EventArgs e)
         {
-            string name = textBox1.Text;
-            string author = textBox2.Text;
-            string ganre = textBox3.Text;
-            string yearOfManufacture = textBox4.Text;
-            string сoverWidth = textBox5.Text;
-            string coverHight = textBox7.Text;
-            string bindingFormat = comboBox1.Text;
-            string sourceOfAppearance = comboBox2.Text;
-            string dateOfAppearanceInTheLibrary = maskedTextBox1.Text;
-            string dateOfReading = maskedTextBox2.Text;
-            string rating = textBox10.Text;
+
+            lock (locker)
+            {
+                try
+                {
+
+                    FileStream fs = new FileStream(@"C:\Users\esteb\source\repos\SUBDLab1\file.txt", FileMode.Create);
+                    StreamWriter streamWriter = new StreamWriter(fs);
 
 
-            dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].SetValues(name, author, ganre, yearOfManufacture, сoverWidth, coverHight,
-                bindingFormat, sourceOfAppearance, dateOfAppearanceInTheLibrary, dateOfReading, rating);
+                    string name = textBox1.Text;
+                    string author = textBox2.Text;
+                    string ganre = textBox3.Text;
+                    string yearOfManufacture = textBox4.Text;
+                    string сoverWidth = textBox5.Text;
+                    string coverHight = textBox7.Text;
+                    string bindingFormat = comboBox1.Text;
+                    string sourceOfAppearance = comboBox2.Text;
+                    string dateOfAppearanceInTheLibrary = maskedTextBox1.Text;
+                    string dateOfReading = maskedTextBox2.Text;
+                    string rating = textBox10.Text;
+                    dataGridView1.Rows.Add(name, author, ganre, yearOfManufacture, сoverWidth, coverHight,
+                        bindingFormat, sourceOfAppearance, dateOfAppearanceInTheLibrary, dateOfReading, rating);
+                    textBox1.Clear();
+                    textBox2.Clear();
+                    textBox3.Clear();
+                    textBox4.Clear();
+                    textBox5.Clear();
+                    textBox7.Clear();
+                    textBox10.Clear();
+                    maskedTextBox1.Clear();
+                    maskedTextBox2.Clear();
+                    try
+                    {
+                        for (int j = 0; j < dataGridView1.Rows.Count - 1; j++)
+                        {
+                            for (int i = 0; i < dataGridView1.Rows[j].Cells.Count; i++)
+                            {
+                                streamWriter.Write(dataGridView1.Rows[j].Cells[i].Value + ";");
+                            }
 
+                            streamWriter.WriteLine();
+                        }
+
+                        streamWriter.Close();
+                        fs.Close();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Ошибка при добавлении из файла!");
+                    }
+                }
+
+                catch
+                {
+                    MessageBox.Show("Файл занят");
+                }
+            }
         }
+            
+        
 
 
 
@@ -193,18 +299,30 @@ namespace SUBDLab1
         }
         private void FindButton_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < dataGridView1.RowCount; i++)
+            lock (locker)
             {
-                dataGridView1.Rows[i].Selected = false;
-                for (int j = 0; j < dataGridView1.ColumnCount; j++)
-                    if (dataGridView1.Rows[i].Cells[j].Value != null)
-                        if (dataGridView1.Rows[i].Cells[j].Value.ToString().Contains(FindTextBox.Text))
-                        {
-                            dataGridView1.Rows[i].Selected = true;
-                            break;
-                        }
+                try
+                {
+
+                    for (int i = 0; i < dataGridView1.RowCount; i++)
+                    {
+                        dataGridView1.Rows[i].Selected = false;
+                        for (int j = 0; j < dataGridView1.ColumnCount; j++)
+                            if (dataGridView1.Rows[i].Cells[j].Value != null)
+                                if (dataGridView1.Rows[i].Cells[j].Value.ToString().Contains(FindTextBox.Text))
+                                {
+                                    dataGridView1.Rows[i].Selected = true;
+                                    break;
+                                }
+                             }
+                
 
 
+                }
+                catch
+                {
+                    MessageBox.Show("Файл занят");
+                }
             }
         }
 
@@ -293,15 +411,18 @@ namespace SUBDLab1
 
         private void button2_Click(object sender, EventArgs e)
         {
+            lock(locker)
+            {
+
 
             try
             {
 
 
-                string text = File.ReadAllText(@"C:\Users\esteb\Desktop\name.txt");
+                string text = File.ReadAllText(@"C:\Users\esteb\source\repos\SUBDLab1\name.txt");
                 string[] author = text.Split(';');
 
-                string text1 = File.ReadAllText(@"C:\Users\esteb\Desktop\123.txt");
+                string text1 = File.ReadAllText(@"C:\Users\esteb\source\repos\SUBDLab1\123.txt");
                 string[] nameBook = text1.Split(';');
 
                 string[] ganre = { "драма", "приключения", "семейный", "биография", "история" };
@@ -376,7 +497,7 @@ namespace SUBDLab1
                         }
 
                     }
-                    FileStream fs = new FileStream(@"C:\Users\esteb\Desktop\file.txt", FileMode.Create);
+                    FileStream fs = new FileStream(@"C:\Users\esteb\source\repos\SUBDLab1\file.txt", FileMode.Create);
                     StreamWriter streamWriter = new StreamWriter(fs);
 
                     try
@@ -402,25 +523,29 @@ namespace SUBDLab1
 
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Файл занят ");
             }
 
 
+            }
 
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-
-            try
+            lock (locker)
+            {
+                try
             {
 
-                dataGridView1.Rows.Clear();
+                    FileStream fs = new FileStream(@"C:\Users\esteb\source\repos\SUBDLab1\file.txt", FileMode.Create);
+                    StreamWriter streamWriter = new StreamWriter(fs);
 
-                FileStream fs = new FileStream(@"C:\Users\esteb\Desktop\file.txt", FileMode.Create);
-                StreamWriter streamWriter = new StreamWriter(fs);
+                    dataGridView1.Rows.Clear();
+
+                
 
                 try
                 {
@@ -444,8 +569,9 @@ namespace SUBDLab1
             }
             catch
             {
-                MessageBox.Show("Пустая строка");
+                MessageBox.Show("Файл занят");
             }
+           }
         }
     }
 }
